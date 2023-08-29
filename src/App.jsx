@@ -135,9 +135,7 @@ function ShopWindow(){
         <input type="text" className='Add_person' ref = {new_person} onKeyDown={add_person_enter}/>
         <button onClick={add_person}>Dodaj osobe</button> 
       </div>
-      <div className='Window'>
-        {persons}
-      </div>
+      <Persons persons = {persons}></Persons>
       <div className="Buttons">
         <div className='radioButtons'>
           <div>Kto płacił za zakupy</div>
@@ -156,6 +154,26 @@ function ShopWindow(){
         </div>
       </div>
     </div>
+  )
+}
+
+function Persons({persons}){
+  if(persons.length === 0)
+    return;
+  let result = [];
+  let help = [];
+  for(let i = 0; i < persons.length; ++i){
+    if(i % 4 === 0){
+      result.push(<div className='Window'>{help}</div>);
+      help = [] 
+    }
+    help.push(persons[i])
+  }
+  result.push(<div className='Window'>{help}</div>)
+  console.log(result)
+
+  return(
+    <div>{result}</div>
   )
 }
 
