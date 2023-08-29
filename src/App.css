@@ -1,0 +1,47 @@
+.Window{
+    display:flex;
+}
+
+.Payments{
+    width: 180px;
+ 
+    
+}
+.adding{
+    display: flex;
+    flex-direction: column;
+}
+.Add_win{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.Add_person{
+    width: 300px;
+    display: inline-block;
+}
+
+.Buttons{
+    margin-top:50px;
+    display:flex;
+}
+
+.radioButtons{
+    display:flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.checkButtons{
+    display:flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+
+.payButtons{
+    display:flex;
+    flex-direction: column;
+}
