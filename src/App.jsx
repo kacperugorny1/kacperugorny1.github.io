@@ -3,6 +3,7 @@ import './App.css'
 
 let names = [];
 let money = [];
+let money_history = [];
 let whopays = [];
 
 function CheckButtons({name, len, arr}){
@@ -88,7 +89,8 @@ function ShopWindow(){
         if(per == 1)
           on++;
       });
-      
+      let temp = money.map(arr => arr.slice());
+      money_history.push(temp);
       for(let i = 0; i < whopays.length; i++){
         if(i == whopaid)
           continue;
@@ -128,8 +130,17 @@ function ShopWindow(){
     setCount((count) => count+=1)
   }
 
+  function undo(evnt){
+    if(money_history.length == 0)
+      return;
+    money = money_history[money_history.length - 1];
+    money_history.pop();
+    setCount((count) => count+=1);
+
+  }
   
   return (
+    <div className = 'main_grid'>
     <div className='Add_win'>
       <div className='adding'>
         <input type="text" className='Add_person' ref = {new_person} onKeyDown={add_person_enter}/>
@@ -152,8 +163,10 @@ function ShopWindow(){
           <input type="text" onKeyDown={add_payments_enter} ref={how_much}></input>
           <button onClick={add_payments}>Dodaj</button>
           <button onClick={sort}>Uprość</button>
+          <button onClick={undo}>Cofnij</button>
         </div>
       </div>
+    </div>
     </div>
   )
 }
