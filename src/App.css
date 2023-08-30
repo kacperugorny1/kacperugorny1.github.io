@@ -1,6 +1,6 @@
 .Window{
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     row-gap: 20px;
     margin-top: 10px;
 }
@@ -14,6 +14,8 @@
             grid-template-columns: auto auto;
         }
     }
+
+    
 }
 
 .Payments{
@@ -45,19 +47,35 @@
 .radioButtons{
     display:flex;
     flex-direction: column;
-    margin-right: 0px;
+    margin: 0;
     padding-right: 10px;
+    
 }
 
 .checkButtons{
     display:flex;
     flex-direction: column;
+    margin: 0;
     padding-right: 10px;
-    margin-right: 0px;
 }
 
+@media(max-width:416px){
+    .checkButtons{
+        padding-right: 0;
+    }
+    .checkButtons div{
+        width:90px;
+    }
+    .radioButtons div{
+        width:90px;
+    }
+    .radioButtons{
+        padding-right: 0;
+    }
+}
 
 .payButtons{
     display:flex;
     flex-direction: column;
+    
 }
