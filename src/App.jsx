@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react'
+import { MutableRefObject, useLayoutEffect } from 'react'
 import './App.css'
 
 let names = [];
 let money = [];
 let money_history = [];
 let whopays = [];
+let text = "";
 
 function CheckButtons({name, len, arr}){
   return (<div><input type="checkbox" onChange={(evnt)=> arr[len]===0?arr[len]=1:arr[len]=0}/>{name}</div>)
@@ -79,35 +81,38 @@ function ShopWindow(){
     }
   }
   function add_payments(evnt){
+    let whopays_names = "";
     if(whopaid===-1)
         return
-      let price = how_much.current.value.replace(",", ".");
-      if(isNaN(price))
-        return;
-      let on = 0;
-      whopays.forEach(per=>{
-        if(per == 1)
-          on++;
-      });
-      let temp = money.map(arr => arr.slice());
-      money_history.push(temp);
-      for(let i = 0; i < whopays.length; i++){
+    let price = how_much.current.value.replace(",", ".");
+    if(isNaN(price) || price === "")
+      return;
+    let on = 0;
+    whopays.forEach(per=>{
+      if(per == 1)
+        on++;
+    });
+    let temp = money.map(arr => arr.slice());
+    money_history.push(temp);
+    for(let i = 0; i < whopays.length; i++){
+      if(whopays[i] == 1){
+        whopays_names += names[i].name + " ";
         if(i == whopaid)
           continue;
-        if(whopays[i] == 1){
-          money[i][whopaid] += (price/on);
-          money[i][whopaid] = parseFloat(money[i][whopaid].toFixed(2));
-          money[whopaid][whopaid] += (price/on)
-          money[whopaid][whopaid] = parseFloat(money[whopaid][whopaid].toFixed(2));
-          money[i][i] -= (price/on)
-          money[i][i] = parseFloat(money[i][i].toFixed(2));
-        
-        }
+        money[i][whopaid] += (price/on);
+        money[i][whopaid] = parseFloat(money[i][whopaid].toFixed(2));
+        money[whopaid][whopaid] += (price/on)
+        money[whopaid][whopaid] = parseFloat(money[whopaid][whopaid].toFixed(2));
+        money[i][i] -= (price/on)
+        money[i][i] = parseFloat(money[i][i].toFixed(2));
+      
       }
+    }
       
       
-      how_much.current.value = "";
-      setCount((count) => count+=1)
+    text += names[whopaid].name + " " + price + " " +  whopays_names + '\n'
+    how_much.current.value = "";
+    setCount((count) => count+=1)
     
   }
 
@@ -135,13 +140,17 @@ function ShopWindow(){
       return;
     money = money_history[money_history.length - 1];
     money_history.pop();
+    text += "Cofnij\n"
     setCount((count) => count+=1);
 
   }
   
   return (
-    <div className = 'main_grid'>
-    <div className='Add_win'>
+  <div className = 'mainBox'>
+    
+    
+
+    <div className='Add_win' id="center">
       <div className='adding'>
         <input type="text" className='Add_person' ref = {new_person} onKeyDown={add_person_enter}/>
         <button onClick={add_person}>Dodaj osobe</button> 
@@ -157,7 +166,7 @@ function ShopWindow(){
           <div>Kogo zakupy</div>
           {check_buttons}
         </div>
-
+        
         <div className="payButtons">
           Kwota
           <input type="text" onKeyDown={add_payments_enter} ref={how_much}></input>
@@ -167,29 +176,17 @@ function ShopWindow(){
         </div>
       </div>
     </div>
+
+    <div className = 'history_textbox' id ='left'>
+      {text}
     </div>
+
+    <div className='test'></div>
+  </div>
   )
 }
 
-// function Persons({persons}){
-//   if(persons.length === 0)
-//     return;
-//   let result = [];
-//   let help = [];
-//   for(let i = 0; i < persons.length; ++i){
-//     if(i % 4 === 0){
-//       result.push(<div className='Window'>{help}</div>);
-//       help = [] 
-//     }
-//     help.push(persons[i])
-//   }
-//   result.push(<div className='Window'>{help}</div>)
-//   console.log(result)
 
-//   return(
-//     <div>{result}</div>
-//   )
-// }
 
 
 function App() {
