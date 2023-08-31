@@ -13,7 +13,9 @@
 
 
   <script>
-    while(true)
-    document.getElementById("left").style.height = document.getElementById("center").style.height;
+     window.onbeforeunload = function ()
+      {
+          return "";
+      };
   </script>
 </html>
