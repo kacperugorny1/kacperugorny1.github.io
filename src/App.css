@@ -26,8 +26,9 @@
     height: 99vh;
 }
 .history_textbox{
-    border-style: solid;font:16px/26px Georgia, Garamond, Serif;overflow:auto;
-    height: 100%;
+    /* border-style: solid; */
+    font:16px/26px Georgia, Garamond, Serif;overflow:auto;
+    max-height: 100%;
     flex: 1;
     white-space: pre-line;
     order: -1;
@@ -36,13 +37,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-style: solid;
+    /* border-style: solid; */
     flex: 1;
 }
 
 @media(max-width:1000px){
     .mainBox{
         flex-direction: column;
+    }
+    .history_textbox{
+        min-width: 300px;
+        order: 0;
     }
 }
 
