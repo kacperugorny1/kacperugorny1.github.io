@@ -25,6 +25,7 @@ function Payments({name, setter}){
       money[i].splice(id,1)
     }
     money.splice(id,1);
+    whopays.splice(id,1);
     text += "Usunięto " + name + "\n"; 
     setter((count)=> count +=1);
 
