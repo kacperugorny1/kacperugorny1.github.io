@@ -15,9 +15,20 @@ function RadioButtons({name, len, setter}){
   return <div><input type="radio" name="whopaid" onClick={(evnt)=>{setter(whopaid=>whopaid = len)}}/>{name}</div>
 }
 
-function Payments({name}){
+function Payments({name, setter}){
   const payments = [];
   const id = names.findIndex(i => i.name === name)  
+  const delete_user = (evnt) => {
+    names.splice(id, 1)
+    for(let i = 0; i < money.length; ++i){
+      money[i][i] += money[i][id];
+      money[i].splice(id,1)
+    }
+    money.splice(id,1);
+    text += "Usunięto " + name + "\n"; 
+    setter((count)=> count +=1);
+
+  }
 
   let i = 0;
   names.forEach((person)=>{
@@ -28,12 +39,14 @@ function Payments({name}){
       payments.push(<div key={payments.length.toString()}>{person.name}: {money[id][i - 1]}</div>);
       
   });
+  const button = <button onClick={delete_user}>Usuń</button>
   payments.push(<div key={payments.length.toString()}>Bilans: {money[id][id]}</div>)
 
   return(
     <div className='Payments'>
     <div>{name} płaci dla</div>
     {payments}
+    {button}
     </div>
   )
 }
@@ -49,7 +62,7 @@ function ShopWindow(){
   const [whopaid, setWhopaid] = useState(-1);
 
   names.forEach((pers) =>{
-    persons.push(<Payments key={persons.length.toString()} name={pers.name}/>);
+    persons.push(<Payments key={persons.length.toString()} name={pers.name} setter={setCount}/>);
     radio_buttons.push(<RadioButtons key={radio_buttons.length.toString()} name={pers.name} len={radio_buttons.length} setter={setWhopaid}/> );
     check_buttons.push(<CheckButtons key={check_buttons.length.toString()} name={pers.name} len={check_buttons.length} arr={whopays}/>);
   });
@@ -62,17 +75,17 @@ function ShopWindow(){
   }
   function add_person(evnt){
     if(new_person.current.value === "")
-    return;
+      return;
     whopays.push(0);
     names.push({name:new_person.current.value});
     new_person.current.value = ""
-    setCount((count) => count += 1)
     let help = [0];
     money.map(x => {
       x.push(0)
       help.push(0)
     });
     money.push(help)
+    setCount((count) => count += 1)
   }
 
   function add_payments_enter(evnt){
@@ -147,9 +160,6 @@ function ShopWindow(){
   
   return (
   <div className = 'mainBox'>
-    
-    
-
     <div className='Add_win' id="center">
       <div className='adding'>
         <input type="text" className='Add_person' ref = {new_person} onKeyDown={add_person_enter}/>
