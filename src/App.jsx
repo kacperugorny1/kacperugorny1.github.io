@@ -19,11 +19,14 @@ function Payments({name, setter}){
   const payments = [];
   const id = names.findIndex(i => i.name === name)  
   const delete_user = (evnt) => {
-    names.splice(id, 1)
+    for(let j = 0; i < money.length; ++j){
+      money[j][j] -= money[id][j];
+    }
     for(let i = 0; i < money.length; ++i){
       money[i][i] += money[i][id];
       money[i].splice(id,1)
     }
+    names.splice(id, 1)
     money.splice(id,1);
     whopays.splice(id,1);
     text += "Usunięto " + name + "\n"; 
