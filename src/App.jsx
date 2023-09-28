@@ -19,7 +19,7 @@ function Payments({name, setter}){
   const payments = [];
   const id = names.findIndex(i => i.name === name)  
   const delete_user = (evnt) => {
-    for(let j = 0; i < money.length; ++j){
+    for(let j = 0; j < money.length; ++j){
       money[j][j] -= money[id][j];
     }
     for(let i = 0; i < money.length; ++i){
