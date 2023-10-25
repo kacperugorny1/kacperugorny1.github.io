@@ -134,6 +134,8 @@ function ShopWindow(){
   }
 
   function sort(evnt){
+    let temp = money.map(arr => arr.slice());
+    money_history.push(temp);
     for(let i = 0; i<names.length; ++i){
       for(let j = 0; j<names.length; ++j){
         if(i === j)
