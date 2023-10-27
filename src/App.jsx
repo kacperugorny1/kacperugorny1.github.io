@@ -159,7 +159,7 @@ function ShopWindow(){
       return;
     money = money_history[money_history.length - 1];
     money_history.pop();
-    text += "Cofnij\n"
+    text = text.substring(0,text.lastIndexOf("\n",text.length - 2));
     setCount((count) => count+=1);
 
   }
