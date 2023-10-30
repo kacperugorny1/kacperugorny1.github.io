@@ -160,6 +160,7 @@ function ShopWindow(){
     money = money_history[money_history.length - 1];
     money_history.pop();
     text = text.substring(0,text.lastIndexOf("\n",text.length - 2));
+    text += "\n";
     setCount((count) => count+=1);
 
   }
